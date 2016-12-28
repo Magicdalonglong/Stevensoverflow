@@ -1,4 +1,4 @@
-Introduction:
+INTRODUCTION:
 
 The main purpose behind this project is to develop an interactive question answer website for Computer Science – Computer Engineering students around the campus.
 
