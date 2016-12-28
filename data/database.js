@@ -151,11 +151,6 @@ module.exports = {
        
         return new Promise((resolve, reject) => {
 
-            console.log('in database fields and values are');
-            console.log(fields);
-            console.log('');
-            console.log(values);
-
             a = {};
             fields.forEach( function(element, index) {
                 a[element] = values[index];

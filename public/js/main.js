@@ -95,9 +95,7 @@ $(function() {
         /* body... */
     });
     searchbtn.click(function() {
-        console.log('searchbtn clicked');
         var link = '/searchpost?q=' + $("#searchbox").val();;
-        console.log("going to jump to" + link);
         window.location.href = link;
         /* body... */
     });

@@ -51,7 +51,7 @@
 
 
         var requestConfig = {
-            method: "POST",
+            method: "PUT",
             url: "/editprofile",
             contentType: 'application/json',
             data: JSON.stringify({

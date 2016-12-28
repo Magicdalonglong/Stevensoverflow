@@ -4,11 +4,6 @@ const inputField = $('#inputField');
     console.log('post.js');
 
 
-
-   // var userbtn = $("#userbtn");
-
-
-
     $('#postForm').submit((e) => {
         e.preventDefault();
         // console.log(marked);
@@ -19,25 +14,6 @@ const inputField = $('#inputField');
         // console.log(post);
     })
 
-
-    // inputField.bind('input propertychange', function(e) {
-    // 	console.log(inputField.val());
-    // 	console.log(inputField.prop("selectionStart"));
-    // });
-
-
-    // console.log('userbtn.val() is ' + userbtn.val());
-    // if (userbtn.val().length > 0) {
-    //     console.log('in front, userbtn length >0');
-    //     loginbtn.addClass("hidden");
-    //     userbtn.removeClass("hidden");
-    // } else {
-    //     console.log('in front, userbtn length does not>0');
-    //     $("#post-form").addClass('hidden');
-
-    //     $("#post-form-alert").text('Please login first');
-    //     $("#post-form-alert").removeClass('hidden');
-    // }
 
 
 })($)

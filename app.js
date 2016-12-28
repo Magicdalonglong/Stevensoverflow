@@ -16,7 +16,7 @@ const handlebarsInstance = exphbs.create({
         }
     },
     partialsDir: [
-        'views/scriptspartial/'
+        'views/partials/'
     ]
 });
 
@@ -37,8 +37,7 @@ const rewriteUnsupportedBrowserMethods = (req, res, next) => {
 
 
 // ---------- for debug only ----------
-app.use(function(req, res, next) {
-          
+app.use(function(req, res, next) {          
         next();
     })
 

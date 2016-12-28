@@ -155,6 +155,34 @@ exports.getpostinfo = function(id) {
 }
 
 
+let cmp= function (a, b) {
+
+    if(a.points<b.points)
+        return 1;
+    if(a.points>b.points)
+        return -1;
+    if(a.points===b.points)
+        return 0;
+}
+
+
+exports.orderusers= function () {
+
+    return db.getUsers().then((user) => {
+        console.log('before sort user is :');
+        console.log(user);
+        user.sort(cmp);
+        console.log('after sort user is :');
+        console.log(user);
+        return Promise.resolve(user);
+    }).catch((err) => {
+        console.log('orderusers error:');
+        console.log(err);
+        return Promise.resolve("orderusers error"+err);
+    });
+}
+
+
 
 exports.signupcheck= function (email) {
 

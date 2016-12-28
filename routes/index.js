@@ -40,8 +40,9 @@ const constructorMethod = (app) => {
     //form page for creating a new post(quesiton)
     app.get('/posting', (req, res) => {
         console.log('app.get posting called');
-        res.render('partials/posting', {
-            user: (req.user) ? req.user : ""
+        res.render('handlebars/posting', {
+            user: (req.user) ? req.user : "",
+            partial: 'posting-script'
         })
     });
 
@@ -56,13 +57,22 @@ const constructorMethod = (app) => {
 
 
     app.get('/test', (req, res) => {
-        Data.database.getUsers().then(ur => {
+        Data.orderusers().then(ur => {
 
-            res.render('partials/allusers', {
+            res.render('handlebars/allusers', {
                 user: (req.user) ? req.user : "",
-                userList: ur
+                userList: ur,
+                partial: 'home'
+
             })
-        })
+        }).catch(err => {
+            res.render('handlebars/notfound', {
+                user: (req.user) ? req.user : "",
+                err: err,
+                partial: 'home'
+
+            })
+        });
     });
 
 
@@ -117,10 +127,11 @@ const constructorMethod = (app) => {
         require('connect-ensure-login').ensureLoggedIn(),
         function(req, res) {
             Data.getuserinfo(req.user._id).then(userinfo => {
-                res.render('partials/profile_self', {
+                res.render('handlebars/profile_self', {
                     user: req.user,
                     postList: userinfo.post,
-                    answerList: userinfo.answer
+                    answerList: userinfo.answer,
+                    partial: 'profile-script'
                 })
             });
         });
@@ -144,16 +155,19 @@ const constructorMethod = (app) => {
 
 
 
-            res.render('partials/profile', {
+            res.render('handlebars/profile', {
                 user: (req.user) ? req.user : "",
                 profileuser: userinfo.user,
                 postList: userinfo.post,
-                answerList: userinfo.answer
+                answerList: userinfo.answer,
+                partial: 'profile-script'
             })
         }).catch(err => {
-            res.render('partials/notfound', {
+            res.render('handlebars/notfound', {
                 user: (req.user) ? req.user : "",
-                err: err
+                err: err,
+                partial: 'home'
+
             })
         });
 
@@ -166,20 +180,22 @@ const constructorMethod = (app) => {
         // in order to display the homepage postlist
         // it will always work even user is undefined
         Data.DefaultSearch(req.user).then(postlist => {
-          
+
             // console.log(postlist[0]._id);
 
-            res.render('partials/home', {
+            res.render('handlebars/home', {
                 postList: postlist,
                 user: (req.user) ? req.user : "",
-                // a: "what the fuck"
+                partial: 'home'
+                    // a: "what the fuck"
             });
 
 
         }).catch(err => {
-            res.render('partials/home', {
+            res.render('handlebars/home', {
                 user: (req.user) ? req.user : "",
-                listerrormessage: err
+                listerrormessage: err,
+                partial: 'home'
             })
         });
     });
@@ -192,15 +208,17 @@ const constructorMethod = (app) => {
         console.log('in route get searchpost called')
         Data.SearchPost(req.query.q).then(postlist => {
 
-            res.render('partials/home', {
+            res.render('handlebars/home', {
                 postList: postlist,
                 user: (req.user) ? req.user : "",
+                partial: 'home'
             });
 
         }).catch(err => {
-            res.render('partials/notfound', {
+            res.render('handlebars/notfound', {
                 user: (req.user) ? req.user : "",
-                err: err
+                err: err,
+                partial: 'home'
             })
         });
     });
@@ -212,14 +230,18 @@ const constructorMethod = (app) => {
         // :3000/search?q=java
         // then i got java
         Data.user.Search(req.query.q).then(userlist => {
-            res.render('partials/userlist', {
+            res.render('handlebars/userlist', {
                 list: userlist,
                 user: (req.user) ? req.user : "",
+                partial: 'home'
+
             })
         }).catch(err => {
-            res.render('partials/home', {
+            res.render('handlebars/home', {
                 user: (req.user) ? req.user : "",
-                listerrormessage: err
+                listerrormessage: err,
+                partial: 'home'
+
             })
         });
     });
@@ -229,17 +251,20 @@ const constructorMethod = (app) => {
         Data.getpostinfo(req.params.id).then(postinfo => {
 
 
-            res.render('partials/singlepost', {
+            res.render('handlebars/singlepost', {
                 user: (req.user) ? req.user : "",
                 post: postinfo.post,
-                answer: postinfo.answer
+                answer: postinfo.answer,
+                partial: 'single-script'
 
             });
 
         }).catch(err => {
-            res.render('partials/notfound', {
+            res.render('handlebars/notfound', {
                 user: (req.user) ? req.user : "",
-                err: err
+                err: err,
+                partial: 'home'
+
             });
         });
     });
@@ -261,8 +286,10 @@ const constructorMethod = (app) => {
         }).catch(err => {
             console.log('createPost falied, err:');
             console.log(err);
-            res.render('partials/posting', {
-                message: err
+            res.render('handlebars/posting', {
+                message: err,
+                partial: 'home'
+
             });
         });
 
@@ -293,7 +320,7 @@ const constructorMethod = (app) => {
 
     });
 
-    app.post('/editprofile', (req, res) => {
+    app.put('/editprofile', (req, res) => {
         Data.edituser(req.user._id, req.body).then(info => {
             res.json({
                 "status": "success"
@@ -315,11 +342,11 @@ const constructorMethod = (app) => {
 
         if (!req.isAuthenticated()) {
 
-            res.redirect('/post/'+req.body.postid);
+            res.redirect('/post/' + req.body.postid);
         } else {
 
             console.log('in route post commenting')
-       
+
 
             // the answer that this comment belongs to is included in the req.body
             // the post id that the answer belongs to is included in the req.body too
