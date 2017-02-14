@@ -90,35 +90,28 @@ const constructorMethod = (app) => {
 
     app.post('/signup', (req, res) => {
 
-        signupcheck(req.body.email).then(() => {
 
-            Data.database.createUser(req.body).then(user => {
-                console.log("createUser successed:"); //e.g.  sign up successed, usrname: pasword:
-                console.log(user);
-                /* refer from
-                http://code.runnable.com/VKHrGJKvwo55gHL7/express-passport-js-login-and-register-for-node-js-and-hello-world            
-                */
-                passport.authenticate('local')(req, res, function() {
-                    res.json({
-                        "status": "success"
-                    });
-                });
-
-            }).catch(err => {
-
-                console.log('\n in route createUser falied:');
-                console.log(err.errmsg.toString());
+        Data.database.createUser(req.body).then(user => {
+            console.log("createUser successed:"); //e.g.  sign up successed, usrname: pasword:
+            console.log(user);
+            /* refer from
+            http://code.runnable.com/VKHrGJKvwo55gHL7/express-passport-js-login-and-register-for-node-js-and-hello-world            
+            */
+            passport.authenticate('local')(req, res, function() {
                 res.json({
-                    "status": err.errmsg
+                    "status": "success"
                 });
             });
 
         }).catch(err => {
-            res.json({
-                "status": err
-            });
 
-        })
+            console.log('\n in route createUser falied:');
+            console.log(err.errmsg.toString());
+            res.json({
+                "status": err.errmsg
+            });
+        });
+
     });
 
 

@@ -2,6 +2,7 @@ $(function() {
 
     // $('#loginBtn').modal('show');
     var loginbtn = $("#loginBtn");
+    var logoutbtn = $("#logoutBtn");
     var userbtn = $("#userbtn");
     var loginmode = $("#loginModal");
     var searchbtn = $("#searchbtn");
@@ -37,7 +38,7 @@ $(function() {
         var sign_up_password = $("#signup-password").val();
         var confirm_password = $("#confirm-password").val();
         if (!sign_up_username) {
-            signup_formAlert.text('You must provide a username');
+            signup_formAlert.text('You must provide a name');
             signup_formAlert.removeClass('hidden');
             return;
         }
@@ -53,6 +54,11 @@ $(function() {
         }
         if (confirm_password !== sign_up_password) {
             signup_formAlert.text('Confrim Password does not match');
+            signup_formAlert.removeClass('hidden');
+            return;
+        }
+        if (sign_up_password.length < 8) {
+            signup_formAlert.text('You must provide long engouh(longer than 8 chars) password');
             signup_formAlert.removeClass('hidden');
             return;
         }
@@ -116,6 +122,7 @@ $(function() {
         console.log('in front, userbtn length >0');
         loginbtn.addClass("hidden");
         userbtn.removeClass("hidden");
+        logoutbtn.removeClass("hidden");
     } else {
         console.log('in front, userbtn length does not>0');
         //  $("#ask-btn").attr('disabled','disabled');

@@ -30,13 +30,14 @@
                         <div class="col-sm-5">
                             <div class="row" id="contact-button">
                                 <div class="col-sm-5 col-sm-offset-5">
-                                    <button type="button" class="btn btn-primary">About Us</button>
                                     <button type="button" id="loginBtn" class="btn btn-info" data-toggle="modal" data-target="#loginModal">Log in</button>
+                                    <button type="button" id="logoutBtn" class="btn btn-primary hidden" onclick="window.location='/logout'">Log Out</button>
+                                    
                                     <button type="button" id="userbtn" class="btn btn-info hidden" value="{{user.name}}">{{user.name}}</button>
 
                                 </div>
                                 
-                                <div id="settingBtn" class="col-sm-1 dropdown">
+                                <div id="settingBtn" class="col-sm-1 dropdown hidden">
                                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                                     <span class="caret"></span>
@@ -106,7 +107,7 @@
                                                                     <div class="alert alert-danger hidden" id="signup-form-alert"></div>
 
                                                                     <div class="form-group">
-                                                                        <input type="text" name="username" id="signup-username" tabindex="1" class="form-control" placeholder="Username" value="">
+                                                                        <input type="text" name="username" id="signup-username" tabindex="1" class="form-control" placeholder="Name" value="">
                                                                     </div>
 
                                                                     
@@ -123,7 +124,7 @@
                                                                     <div class="form-group">
                                                                         <div class="row">
                                                                             <div class="col-sm-6 col-sm-offset-3">
-                                                                                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+                                                                                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Create Account">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -193,23 +194,11 @@
                 {{{body}}}
             </div>
         </div>
-       {{!--  {{> (lookup . 'partial') }} --}}
 
-        <script type="text/javascript" src="/public/js/profile.js"></script>
 
 {{!--  here is script for main --}}
     <script src="/public/js/main.js" type="text/javascript" charset="utf-8" async defer></script>
 
-
-        {{!-- for single post  --}}
-         <script type="text/javascript" src="../public/js/marked.js"></script>
-    <script type="text/javascript" src="../public/js/markdown.js"></script>
-    <script type="text/javascript" src="../public/js/to-markdown.js"></script>
-    <script type="text/javascript" src="../public/js/bootstrap-markdown.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
-    <script type="text/javascript" src="../public/js/firebase-setup.js"></script>
-    <script type="text/javascript" src="../public/js/facebook-setup.js"></script>
-       {{!-- for single post end --}}
 
     {{> (lookup . 'partial') }}
 
